@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "titulo": "Casa Branca Flor",
+        "preco": 250.0,
+        "quartos": 4,
+        "banheiro": 2,
+        "metro2": 150
+    },
+    {
+        "banheiro": 2,
+        "id": 2,
+        "metro2": 150,
+        "preco": 250.0,
+        "quartos": 4,
+        "titulo": "Casa Flor"
+    }
+]
