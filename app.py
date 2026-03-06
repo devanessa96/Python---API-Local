@@ -25,7 +25,7 @@ def salvar_dados(dados):
 
 # CONSULTA GERAL IMÓVEIS
 
-@app.route("/imoveis", methods=["GET"])
+@app.route("/v1/imoveis", methods=["GET"])
 def consulta_imoveis():
     imoveis = carregar_dados()
     return jsonify(imoveis)
@@ -35,7 +35,7 @@ def consulta_imoveis():
 
 # CONSULTA IMÓVEIS POR ID
 
-@app.route("/imoveis/<int:id>", methods=["GET"])
+@app.route("/v1/imoveis/<int:id>", methods=["GET"])
 def consulta_imoveis_id(id):
     imoveis = carregar_dados()
     for imovel in imoveis:
@@ -47,19 +47,44 @@ def consulta_imoveis_id(id):
 
 # CADASTRAR IMÓVEIS
 
-@app.route("/imoveis/cadastro", methods=["POST"])
+@app.route("/v1/imoveis/cadastro", methods=["POST"])
 def cadastrar_imoveis():
     imoveis = carregar_dados()
     novo_imovel = request.get_json()
+
+    # validação do título
+    if novo_imovel["titulo"] == "":
+        return jsonify({"erro": "O campo título não pode estar vazio"}), 400
+    
+
+    # validação do preco
+    if novo_imovel["preco"] == "":
+        return jsonify({"erro": "O campo preço não pode estar vazio"}), 400
+
+     # validação do quarto
+    if novo_imovel["quarto"] == "":
+        return jsonify({"erro": "O campo quarto não pode estar vazio"}), 400
+
+     # validação do banheiro
+    if novo_imovel["banheiro"] == "":
+        return jsonify({"erro": "O campo banheiro não pode estar vazio"}), 400
+
+     # validação do metro2
+    if novo_imovel["metro2"] == "":
+        return jsonify({"erro": "O campo metro2 não pode estar vazio"}), 400
+
     imoveis.append(novo_imovel)
     salvar_dados(imoveis)
+
     return jsonify(imoveis)
+
+
 
 
 
 # EDITAR IMÓVEIS
 
-@app.route("/imoveis/<int:id>", methods=["PUT"])
+@app.route("/v1/imoveis/<int:id>", methods=["PUT"])
 def editar_imovel(id):
     imoveis = carregar_dados()
     dados = request.get_json()
@@ -90,7 +115,7 @@ def editar_imovel(id):
 
 # DELETAR IMÓVEIS
 
-@app.route("/imoveis/<int:id>", methods=["DELETE"])
+@app.route("/v1/imoveis/<int:id>", methods=["DELETE"])
 def deletar_imoveis(id):
    imoveis = carregar_dados()
    for indice, imovel in enumerate(imoveis):
